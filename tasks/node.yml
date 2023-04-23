@@ -1,0 +1,42 @@
+- name: Install Node.js
+  homebrew:
+    name: node
+  tags: &tags_for_node_tasks [ 'install', 'node' ]
+
+- name: Update .zshrc adding brew node to path
+  lineinfile:
+    path: ~/.zshrc
+    line: 'export PATH="/opt/homebrew/opt/node/bin:$PATH"'
+  tags: *tags_for_node_tasks
+
+- name: Verify Node.js installation
+  command: node -v
+  register: node_version
+  tags: *tags_for_node_tasks
+
+- name: Print Node.js version
+  debug:
+    var: node_version.stdout
+  tags: *tags_for_node_tasks
+
+- name: Install N
+  npm:
+    name: n
+    global: yes
+  tags: *tags_for_node_tasks
+
+- name: Update .zshrc adding n to path
+  lineinfile:
+    path: ~/.zshrc
+    line: 'export PATH=$HOME/n/bin:"$PATH"'
+  tags: *tags_for_node_tasks
+
+- name: Update .zshrc including N_PREFIX
+  lineinfile:
+    path: ~/.zshrc
+    line: 'export N_PREFIX="$HOME/n"'
+  tags: *tags_for_node_tasks
+
+- name: Install correct version of Node
+  shell: n lts
+  tags: *tags_for_node_tasks

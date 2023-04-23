@@ -1,0 +1,6 @@
+- hosts: localhost
+  tasks:
+    - include_tasks: tasks/shell.yml
+    - include_tasks: tasks/node.yml
+    - include_tasks: tasks/starship.yml
+    - include_tasks: tasks/tmux.yml

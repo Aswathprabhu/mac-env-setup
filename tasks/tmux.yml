@@ -1,0 +1,14 @@
+- name: Install Tmux
+  homebrew:
+    name: tmux
+  tags: &tags_for_tmux_tasks [ 'install', 'tmux' ]
+
+- name: Verify Tmux installation
+  command: tmux -V
+  register: tmux_version
+  tags: *tags_for_tmux_tasks
+
+- name: Print Tmux version
+  debug:
+    var: tmux_version.stdout
+  tags: *tags_for_tmux_tasks

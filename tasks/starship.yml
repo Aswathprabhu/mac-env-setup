@@ -1,0 +1,20 @@
+- name: Install Starship
+  homebrew:
+    name: starship
+  tags: &tags_for_starship_tasks [ 'install', 'starship' ]
+
+- name: Update .zshrc adding n to path
+  lineinfile:
+    path: ~/.zshrc
+    line: 'eval "$(starship init zsh)"'
+  tags: *tags_for_starship_tasks
+
+- name: Verify Starship installation
+  command: starship --version
+  register: starship_version
+  tags: *tags_for_starship_tasks
+
+- name: Print Starship version
+  debug:
+    var: starship_version.stdout
+  tags: *tags_for_starship_tasks
