@@ -1,0 +1,18 @@
+- name: Install fzf
+  homebrew:
+    name: fzf
+  tags: &tags_for_fzf_tasks [ 'install', 'fzf' ]
+
+- name: Verify fzf installation
+  command: fzf --version
+  register: fzf_version
+  tags: *tags_for_fzf_tasks
+
+- name: Print fzf version
+  debug:
+    var: fzf_version.stdout
+  tags: *tags_for_fzf_tasks
+
+- name: Install useful key bindings and fuzzy completion
+  shell: $(brew --prefix)/opt/fzf/install
+  tags: *tags_for_fzf_tasks

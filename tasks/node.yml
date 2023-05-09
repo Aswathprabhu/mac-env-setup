@@ -38,5 +38,5 @@
   tags: *tags_for_node_tasks
 
 - name: Install correct version of Node
-  shell: n lts
+  shell: sudo n lts
   tags: *tags_for_node_tasks
